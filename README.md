@@ -146,3 +146,32 @@ SET @@transaction_isolation = 'READ-COMMITTED';
 
 ### Read uncommitted
 The current transaction can read data written by another uncommitted transaction,which is called __dirty read__
+
+### Repetable read
+#### multi version concurrency control(MVCC)
+When a transaction starts and executes its first read, a read view will be created and stay open until the end of transaction.
+
+Current transaction cannot get delete and update statements from other transactions
+
+
+### Serializable
+This provides the highest level of isolation by locking all the rows that are being selected.Like ```REPEATABLE READ```,InnoDB implicitly converts all plain ```SELECT``` statements to ```SELECT...LOCK IN SHARE MODE``` if autocommit is disabled
+
+
+### Locking
+two kind
+- Internal locking
+  - Row-level: only InnoDB supports
+  - Table-level: MyISAM, MEMORY, MERGE
+- External locking
+
+```
+LOCK TABLES tbname;
+UNLOCK TABLES;
+```
+lock all tables across all dbs
+```
+FLUSH TABLES WITH READ LOCK;
+```
+### Locking queue
+__A table can be multiple shared locks__
