@@ -175,3 +175,46 @@ FLUSH TABLES WITH READ LOCK;
 ```
 ### Locking queue
 __A table can be multiple shared locks__
+
+```InnoDB``` acquires a metadata lock when reading/writing from a table. If a second transaction requests ```WRITE LOCK```, it will be kept in a queue until the first transaction completes.
+
+
+```
+SHOW PROCESSLIST;
+```
+
+## Binary Logging
+### Introduction
+The binary log contains a record of all changes to the database, both data and structure. The binary log is not used for statements such as ```SELECT``` or ```SHOW``` that do not modify data.  
+Running a server with binary logging enabled has a slight performance effect.
+The binary lof is crash safe.
+#### WHY
+reason
+- Replication
+- Point-in-time recovery
+
+
+### Enabling binary logs
+```
+[mysqld]
+log_bin = /data/mysql/binlogs/server1
+server_id=100
+```
+```
+SHOW VARIABLES LIKE 'log_bin%';
+SHOW MASTER LOGS;
+```
+
+list log file in data
+```
+ls -lhtr /data/mysql/binlogs
+```
+```
+SHOW MASTER STATUS;  //same as SHOW BINARY LOGS
+```
+
+default=1g.
+```
+max_binlog_size
+```
+
