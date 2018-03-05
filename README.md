@@ -218,3 +218,24 @@ default=1g.
 max_binlog_size
 ```
 
+### Disabling binary logs for a session
+Only valid for this session.
+```
+SET SQL_LOG_BIN=0;
+```
+enable
+```
+SET SQL_LOG_BIN=1;
+```
+
+
+### Move to the next log
+```FLUSH LOGS;``` close the current binary log and open a new one
+
+
+
+### Expire binary logs
+__Leave them as-is can fill up the disk in no time__
+```
+binlog_expire_logs_seconds
+```
